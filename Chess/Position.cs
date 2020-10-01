@@ -1039,11 +1039,18 @@ namespace Rudz.Chess
             // en-passant
             chunk = fen.Chunk();
 
-            State.EnPassantSquare = chunk.Length == 1 || chunk[0] == '-' || !chunk[0].InBetween('a', 'h')
-                ? Square.None
-                : chunk[1].InBetween('3', '6')
-                    ? Square.None
-                    : new Square(chunk[1] - '1', chunk[0] - 'a').Value;
+            if (chunk.Length == 1 || chunk[0] == '-' || !chunk[0].InBetween('a', 'h'))
+            {
+                State.EnPassantSquare = Square.None;
+            }
+            else if (!new char[] { '3', '6' }.Contains(chunk[1]))
+            {
+                State.EnPassantSquare = Square.None;
+            }
+            else
+            {
+                State.EnPassantSquare = new Square(chunk[1] - '1', chunk[0] - 'a').Value;
+            }
 
             // move number
             chunk = fen.Chunk();
