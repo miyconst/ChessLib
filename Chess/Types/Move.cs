@@ -146,7 +146,7 @@ namespace Rudz.Chess.Types
         {
             return IsNullMove()
                 ? "(null)"
-                : MoveType() == MoveTypes.Normal
+                : (MoveType() == MoveTypes.Normal || MoveType() == MoveTypes.Enpassant)
                     ? $"{FromSquare()}{ToSquare()}"
                     : MoveType() == MoveTypes.Castling
                         ? FromSquare() < ToSquare() ? "0-0" : "0-0-0"
